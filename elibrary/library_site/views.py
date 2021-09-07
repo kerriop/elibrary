@@ -5,7 +5,6 @@ from .models import Book, Author
 from django.http import Http404, HttpResponseRedirect, HttpResponseNotFound, HttpResponse
 from .library_site_services import *
 
-
 def index(request):
     if request.method == 'GET':
         q = request.GET.get('q')

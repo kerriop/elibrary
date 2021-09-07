@@ -1,10 +1,8 @@
 from django import forms
-from django.contrib.admin.widgets import FilteredSelectMultiple
-from django.contrib.auth.forms import UserChangeForm
 from .models import Author, Book
 
-
 class BookForm(forms.ModelForm):
+
     class Meta:
         model = Book
         fields = ['title', 'authors', 'summary', 'genre', 'image']
@@ -21,10 +19,9 @@ class BookForm(forms.ModelForm):
             'genre': forms.TextInput(attrs={
                 'class': "wicon", "id": "title", 'type': "text",
                 'placeholder': "genre"}),
-        # 'image': forms.FileInput(attrs={
-        #     "id": "input_file", 'type': "file", "opacity": "0",
-        #     "visibility": "hidden", "position": "absolute"}),
-
+            'image': forms.FileInput(attrs={
+                "id": "input_file", 'type': "file", "opacity": "0",
+                "visibility": "hidden", "position": "absolute"}),
         }
 
 

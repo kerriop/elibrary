@@ -4,3 +4,6 @@
 media/
 venv/
 *.pyc
+.pyc
+/__pycache__/
+elibrary/library_site/__pycache__/

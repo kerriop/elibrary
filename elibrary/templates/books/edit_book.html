@@ -11,12 +11,6 @@
             <div class="default_form" id="title">
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-{#                    <div id="image">#}
-{#                        <img src="{{ book.image.url }}" id="avatar_img">#}
-{#                        <label for="input_file" class="button blue">#}
-{#                            <span id="file_btn">Выбрать фото</span>#}
-{#                        </label>#}
-{#                    </div>#}
                     <div class="content">
                         <ul>
                             <li>
@@ -38,7 +32,7 @@
                                         <span id="file_btn">Выбрать фото</span>
                                     </label>
                                 </div>
-{#                                                                {{ book_form.image }}#}
+                                {{ book_form.image }}
                             </li>
                         </ul>
                     </div>
