@@ -14,7 +14,7 @@
     {% load static %}
     <link rel="stylesheet" href='{% static "css/authors.css" %}'/>
 
-    {% if len_book_list > 0 %}
+    {% if book_list.count > 0 %}
         <div class="table_place">
             <table class="table">
                 <tbody>
@@ -56,7 +56,7 @@
         </div>
     {% endif %}
 
-    {% if len_author_list > 0 %}
+    {% if author_list.count > 0 %}
         <div class="table_place">
         <table class="table">
             <tbody>

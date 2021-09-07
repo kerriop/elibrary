@@ -114,14 +114,6 @@ button.table_button {
     transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1), color 0.28s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-span.edit {
-    background: url(/static/images/edit-gray-12dp.svg) no-repeat center;
-}
-
-span.delete {
-    background: url(/static/images/delete-gray-12dp.svg) no-repeat center;
-}
-
 a#edit_post:hover, a#delete_post:hover {
     color: rgba(0, 0, 0, 1)
 }

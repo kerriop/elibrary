@@ -3,16 +3,15 @@ from django.shortcuts import render
 from .forms import BookForm, AuthorForm
 from .models import Book, Author
 from django.http import Http404, HttpResponseRedirect, HttpResponseNotFound, HttpResponse
+from .library_site_services import *
 
 
 def index(request):
     if request.method == 'GET':
         q = request.GET.get('q')
         book_list = Book.objects.all().filter(title=q)
-        len_book_list = len(book_list)
         author_list = Author.objects.all().filter(last_name=q)
-        len_author_list = len(author_list)
-        return render(request, 'index.html', {'book_list': book_list, 'author_list': author_list, 'len_book_list':len_book_list, 'len_author_list':len_author_list})
+        return render(request, 'index.html', {'book_list': book_list, 'author_list': author_list})
     else:
         return render(request, 'index.html')
 
@@ -75,40 +74,6 @@ def new_author(request):
                       {"author_form": author_form, "submit_btn": "Написать"})
 
 
-def update_book_fields(request, book):
-    if request.POST.get("title") is not None:
-        book.title = request.POST.get("title")
-
-    if request.POST.get("summary") is not None:
-        book.summary = request.POST.get("summary")
-
-    if request.POST.get("authors") is not None:
-        book.authors.set([request.POST.get("authors")])
-
-    if request.POST.get("genre") is not None:
-        book.genre = request.POST.get("genre")
-
-    if request.FILES.get("image") is not None:
-        book.image = request.FILES.get("image")
-    book.save()
-
-
-def read_book(book):
-    ret = {'title': book.title,
-           'summary': book.summary,
-           'authors': book.authors,
-           'genre': book.genre,
-           'image': book.image}
-    return ret
-
-
-def read_author(author):
-    ret = {'first_name': author.first_name,
-           'last_name': author.last_name,
-           'date_of_birth': author.date_of_birth}
-    return ret
-
-
 def book_update(request, book_id):
     """
     Редактирование книги
@@ -164,18 +129,6 @@ def author_delete(request, author_id):
 
     author.delete()
     return HttpResponseRedirect("authors/authors")
-
-
-def update_author_fields(request, author):
-    if request.POST.get("first_name") is not None:
-        author.first_name = request.POST.get("first_name")
-
-    if request.POST.get("last_name") is not None:
-        author.last_name = request.POST.get("last_name")
-
-    if request.POST.get("date_of_birth") is not None:
-        author.date_of_birth = request.POST.get("date_of_birth")
-    author.save()
 
 
 def author_update(request, author_id):
