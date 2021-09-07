@@ -21,10 +21,12 @@ class BookForm(forms.ModelForm):
             'genre': forms.TextInput(attrs={
                 'class': "wicon", "id": "title", 'type': "text",
                 'placeholder': "genre"}),
-            'image': forms.FileInput(attrs={
-                "id": "input_file", 'type': "file", "opacity": "0",
-                "visibility": "hidden", "position": "absolute"}),
+        # 'image': forms.FileInput(attrs={
+        #     "id": "input_file", 'type': "file", "opacity": "0",
+        #     "visibility": "hidden", "position": "absolute"}),
+
         }
+
 
 class AuthorForm(forms.ModelForm):
     class Meta:

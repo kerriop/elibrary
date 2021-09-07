@@ -32,7 +32,8 @@
                 {% for book in book_list %}
                     <tr>
                         <td>{{ book.title }}</td>
-                        <td>{{ book.authors.all|join:", " }}</td>
+                        <td>{{ book.authors.all|join:', '}}</td>
+                        <td>{{ book.authors.all}}</td>
                         <td>{{ book.summary }}</td>
                         <td>{{ book.genre }}</td>
                         <td><img src="{{ book.image.url }}"></td>

@@ -6,7 +6,10 @@ def update_book_fields(request, book):
         book.summary = request.POST.get("summary")
 
     if request.POST.get("authors") is not None:
-        book.authors.set([request.POST.get("authors")])
+        list = request.POST.getlist('authors')
+        book.authors.set('')
+        for item in list:
+            book.authors.add(item)
 
     if request.POST.get("genre") is not None:
         book.genre = request.POST.get("genre")
