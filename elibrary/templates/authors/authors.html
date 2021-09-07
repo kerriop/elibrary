@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Авторы{% endblock title %}
+
+{% block content %}
+
+    {% load static %}
+    <link rel="stylesheet" href='{% static "css/authors.css" %}'/>
+
+    <div class="table_place">
+        <table class="table">
+            <tbody>
+            <thread>
+                <tr>
+                    <th class="title">Имя</th>
+                    <th class="title">Фамилия</th>
+                    <th class="title">Дата рождения</th>
+                </tr>
+            </thread>
+            <form method="POST">
+                {% csrf_token %}
+                    <div class="actions">
+                        <button class="button blue" name="_submit">{{ submit_btn }}</button>
+                    </div>
+            </form>
+            {% for author in author_list %}
+                <tr>
+                    <td>{{ author.first_name }}</td>
+                    <td>{{ author.last_name }}</td>
+                    <td>{{ author.date_of_birth }}</td>
+
+                    <td class="btn_place">
+                        <button class="table_button" onclick=
+                                "location.href='/author_update/{{ author.id }}'" type="button">
+                            <span class="edit"></span>
+                        </button>
+                    </td>
+                    <td class="btn_place">
+                        <button class="table_button" onclick=
+                                "location.href='/author_delete/{{ author.id }}'" type="button">
+                            <span class="delete"></span>
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+{% endblock content %}
+
+{% block footer %}{% endblock footer %}

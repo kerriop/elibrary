@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href='{% static "css/header.css" %}'/>
+    <title>{% block title %}Default title{% endblock title %}</title>
+</head>
+<body>
+<link rel="stylesheet" href='{% static "css/styles.css" %}'/>
+{% block header %}
+    <header>
+        <div><h1>e-library</h1></div>
+        <nav>
+            <a href="/">Главная</a>
+            <a href="/books/">Книги</a>
+            <a href="/authors/">Авторы</a>
+        </nav>
+        <nav>
+                <strong> {{ request.user }} </strong>
+                <a href="/admin">Админка</a>
+        </nav>
+    </header>
+{% endblock header %}
+
+<div>{% block content %}{% endblock content %}</div>
+
+{% block footer %}
+    <div>Footer</div> {% endblock footer %}
+</body>
+</html>

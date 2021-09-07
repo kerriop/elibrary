@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Редактировать Автора{% endblock title %}
+
+{% block content %}
+    {% load static %}
+    <link rel="stylesheet" href='{% static "css/registration.css" %}'/>
+
+
+    <div class="default_div" id="post">
+        <div class="wrapper">
+            <div class="default_form" id="title">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="content">
+                        <ul>
+                            <li>
+                                {{ author_form.first_name }}
+                            </li>
+                            <li>
+                                {{ author_form.last_name }}
+                            </li>
+                            <li>
+                                {{ author_form.date_of_birth }}
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="actions">
+                        <button class="button blue" name="_submit">{{ submit_btn }}</button>
+                        <button formnovalidate class="button" name="_cancel">Отмена</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+{% endblock content %}
+
+{% block footer %}{% endblock footer %}

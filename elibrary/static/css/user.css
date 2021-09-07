@@ -1,0 +1,39 @@
+.reg_wrapper {
+    margin-top: unset;
+    position: unset;
+    width: unset;
+    display: flex;
+}
+
+.default_div {
+    width: auto;
+    height: auto;
+    display: table;
+}
+
+div#image {
+    padding: 12px 24px 12px 24px;
+}
+
+div#user div.reg_wrapper div {
+    display: inline-block;
+}
+
+div#user div.reg_wrapper div.content {
+    padding: 24px 24px 24px 24px;
+}
+
+a#user_update {
+    text-align: center;
+    margin: 0px;
+    margin-top: 8px;
+    text-transform: none;
+    height: auto;
+    background: rgb(0 0 0 / 12%);
+    color: rgb(0 0 0 / 50%);
+    border-radius: 10px;
+}
+
+a#user_update:hover {
+    color: rgba(0, 0, 0, 1)
+}

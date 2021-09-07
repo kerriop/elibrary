@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Новая книга{% endblock title %}
+
+{% block content %}
+    {% load static %}
+    <link rel="stylesheet" href='{% static "css/registration.css" %}'/>
+
+
+    <div class="default_div" id="post">
+        <div class="wrapper">
+            <div class="default_form" id="title">
+                <form method="POST" enctype="multipart/form-data">
+
+                    {% csrf_token %}
+                    <div id="image">
+                        <img src="{{ book.image.url }}" id="avatar_img">
+                        <label for="input_file" class="button blue">
+                            <span id="file_btn">Выбрать фото</span>
+                        </label>
+                    </div>
+                    <div class="content">
+                        <ul>
+                            <li>
+                                {{ book_form.title }}
+                            </li>
+                            <li>
+                                {{ book_form.authors }}
+                            </li>
+                            <li>
+                                {{ book_form.summary }}
+                            </li>
+                            <li>
+                                {{ book_form.genre }}
+                            </li>
+                            <li>
+                                {{ book_form.image }}
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="actions">
+                        <button class="button blue" name="_submit">{{ submit_btn }}</button>
+                        <button formnovalidate class="button" name="_cancel">Отмена</button>
+                    </div>
+                    <script src="/static/js/image_upload.js"></script>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block footer %}{% endblock footer %}

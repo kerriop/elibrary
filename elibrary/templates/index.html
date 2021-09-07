@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}Главная{% endblock title %}
+
+{% block content %}
+    {% load static %}
+    <link rel="stylesheet" href='{% static "css/registration.css" %}'/>
+    <div class="navbar-collapse" id="navbarRespositive">
+
+        <form action="{% url 'index' %}" method="get">
+            <input class="wicon" type="text" name="q" placeholder="Поиск...">
+        </form>
+    </div>
+
+    {% load static %}
+    <link rel="stylesheet" href='{% static "css/authors.css" %}'/>
+
+    {% if len_book_list > 0 %}
+        <div class="table_place">
+            <table class="table">
+                <tbody>
+                <thread>
+                    <tr>
+                        <div id="index-table">
+                            <th class="title">Название</th>
+                            <th class="title">Авторы</th>
+                            <th class="title">Описание</th>
+                            <th class="title">Жанр</th>
+                            <th class="title">Обложка</th>
+                        </div>
+                    </tr>
+                </thread>
+                {% for book in book_list %}
+                    <tr>
+                        <td>{{ book.title }}</td>
+                        <td>{{ book.authors.all|join:", " }}</td>
+                        <td>{{ book.summary }}</td>
+                        <td>{{ book.genre }}</td>
+                        <td><img src="{{ book.image.url }}"></td>
+
+                        <td class="btn_place">
+                            <button class="table_button" onclick=
+                                    "location.href='/book_update/{{ book.id }}'" type="button">
+                                <span class="edit"></span>
+                            </button>
+                        </td>
+                        <td class="btn_place">
+                            <button class="table_button" onclick=
+                                    "location.href='/book_delete/{{ book.id }}'" type="button">
+                                <span class="delete"></span>
+                            </button>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+
+    {% if len_author_list > 0 %}
+        <div class="table_place">
+        <table class="table">
+            <tbody>
+            <thread>
+                <tr>
+                    <th class="title">Имя</th>
+                    <th class="title">Фамилия</th>
+                    <th class="title">Дата рождения</th>
+                </tr>
+            </thread>
+            {% for author in author_list %}
+                <tr>
+                    <td>{{ author.first_name }}</td>
+                    <td>{{ author.last_name }}</td>
+                    <td>{{ author.date_of_birth }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+
+{% endblock content %}
+
+{% block footer %}{% endblock footer %}
