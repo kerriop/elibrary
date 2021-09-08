@@ -5,6 +5,12 @@ from .models import Book, Author
 from django.http import Http404, HttpResponseRedirect, HttpResponseNotFound, HttpResponse
 from .library_site_services import *
 
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializers import BookListSerializer, AuthorListSerializer, BookAuthorsSerializer, AuthorsSerializer, \
+    ReviewCreateSerializer
+
+
 def index(request):
     if request.method == 'GET':
         q = request.GET.get('q')
@@ -159,3 +165,41 @@ def author_update(request, author_id):
         return render(request, "authors/edit_author.html",
                       {"author": author, "author_form": author_form,
                        "title": "Изменение данных", "submit_btn": "Изменить"})
+
+
+class BookListView(APIView):
+    def get(self, request):
+        books = Book.objects.all()
+        serializer = BookListSerializer(books, many=True)
+        return Response(serializer.data)
+
+
+class BookAuthorView(APIView):
+    def get(self, request, pk):
+        book = Book.objects.get(id=pk)
+        serializer = BookAuthorsSerializer(book)
+        return Response(serializer.data)
+
+
+class ReviewCreateView(APIView):
+    """Добавление жанра в книгу"""
+
+    def post(self, request):
+        review = ReviewCreateSerializer(data=request.data)
+        if review.is_valid():
+            review.save()
+        return Response(status=201)
+
+
+class AuthorListView(APIView):
+    def get(self, request):
+        authors = Author.objects.all()
+        serializer = AuthorListSerializer(authors, many=True)
+        return Response(serializer.data)
+
+
+class AuthorView(APIView):
+    def get(self, request, pk):
+        author = Author.objects.get(id=pk)
+        serializer = AuthorsSerializer(author)
+        return Response(serializer.data)

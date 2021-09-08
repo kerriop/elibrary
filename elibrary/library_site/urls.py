@@ -1,9 +1,6 @@
 from django.urls import path
 from . import views
 
-# app_name = 'library_site'
-# pattern_name = 'library_site'
-
 urlpatterns = [
     path("", views.index, name='index'),
     path("authors/", views.authors, name='authors'),
@@ -14,11 +11,11 @@ urlpatterns = [
     path("author_delete/<int:author_id>/", views.author_delete),
     path("new_book/", views.new_book),
     path("new_author/", views.new_author),
-    # path("searchbar/", views.searchbar, name='searchbar'),
-    # path("search/", views.Search.as_view(), name='search'),
 
+    path('api/v1/book/', views.BookListView.as_view()),
+    path('api/v1/book/<int:pk>', views.BookAuthorView.as_view()),
+    path('api/v1/review/', views.ReviewCreateView.as_view()),
 
-    # path('search', views.book_list, name='book_list'),
-    # path('search/', views.book_detail, name='book_detail'),
-    # path('search/search/', views.search, name='search'),
+    path('api/v1/author/', views.AuthorListView.as_view()),
+    path('api/v1/author/<int:pk>', views.AuthorView.as_view()),
 ]
