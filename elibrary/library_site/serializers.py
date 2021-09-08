@@ -67,7 +67,7 @@ class AuthorListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
         fields = ('first_name', 'last_name', 'date_of_birth')
-        
+
 
 class BookAuthorsSerializer(serializers.ModelSerializer):
     """

@@ -1,3 +1,4 @@
+from rest_framework import generics
 from django.shortcuts import render
 
 from .forms import BookForm, AuthorForm
@@ -9,6 +10,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import BookListSerializer, AuthorListSerializer, BookAuthorsSerializer, AuthorsSerializer, \
     ReviewCreateSerializer
+
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 def index(request):
@@ -167,40 +170,59 @@ def author_update(request, author_id):
                        "title": "Изменение данных", "submit_btn": "Изменить"})
 
 
-class BookListView(APIView):
-    def get(self, request):
+# class BookListView(APIView):
+#     def get(self, request):
+#         books = Book.objects.all()
+#         serializer = BookListSerializer(books, many=True)
+#         return Response(serializer.data)
+
+class BookListView(generics.ListAPIView):
+    """Список книг"""
+    serializer_class = BookListSerializer
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = BookFilter
+    def get_queryset(self):
         books = Book.objects.all()
-        serializer = BookListSerializer(books, many=True)
-        return Response(serializer.data)
+        return books
 
 
-class BookAuthorView(APIView):
-    def get(self, request, pk):
-        book = Book.objects.get(id=pk)
-        serializer = BookAuthorsSerializer(book)
-        return Response(serializer.data)
+# class BookAuthorView(APIView):
+#     def get(self, request, pk):
+#         book = Book.objects.get(id=pk)
+#         serializer = BookAuthorsSerializer(book)
+#         return Response(serializer.data)
+
+class BookAuthorView(generics.RetrieveAPIView):
+    """Книга"""
+    queryset = Book.objects.filter()
+    serializer_class = BookAuthorsSerializer
 
 
-class ReviewCreateView(APIView):
-    """Добавление жанра в книгу"""
+# class ReviewCreateView(APIView):
+#     """Добавление отзыва в книгу"""
+#
+#     def post(self, request):
+#         review = ReviewCreateSerializer(data=request.data)
+#         if review.is_valid():
+#             review.save()
+#         return Response(status=201)
 
-    def post(self, request):
-        review = ReviewCreateSerializer(data=request.data)
-        if review.is_valid():
-            review.save()
-        return Response(status=201)
+
+class ReviewCreateView(generics.CreateAPIView):
+    """Добавление отзыва в книгу"""
+    serializer_class = ReviewCreateSerializer
 
 
+class AuthorListView(generics.ListAPIView):
+    """Список авторов"""
+    serializer_class = AuthorListSerializer
 
-class AuthorListView(APIView):
-    def get(self, request):
+    def get_queryset(self):
         authors = Author.objects.all()
-        serializer = AuthorListSerializer(authors, many=True)
-        return Response(serializer.data)
+        return authors
 
 
-class AuthorView(APIView):
-    def get(self, request, pk):
-        author = Author.objects.get(id=pk)
-        serializer = AuthorsSerializer(author)
-        return Response(serializer.data)
+class AuthorView(generics.RetrieveAPIView):
+    """Автор"""
+    queryset = Author.objects.filter()
+    serializer_class = AuthorsSerializer
