@@ -27,6 +27,9 @@ urlpatterns = [
     path("", include('library_site.urls')),
     url(r'^favicon\.ico$', RedirectView.as_view(url='/static/images/favicon.ico')),
     path('api-auth/', include('rest_framework.urls')),
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.authtoken')),
+    path('auth/', include('djoser.urls.jwt')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
