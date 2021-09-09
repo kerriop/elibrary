@@ -1,4 +1,4 @@
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, viewsets
 from django.shortcuts import render
 
 from .forms import BookForm, AuthorForm
@@ -188,6 +188,24 @@ class BookListView(generics.ListAPIView):
         books = Book.objects.all()
         return books
 
+# class BookViewSet(viewsets.ReadOnlyModelViewSet):
+#     """Список книг"""
+#     # serializer_class = BookListSerializer
+#     filter_backends = (DjangoFilterBackend,)
+#     filterset_class = BookFilter
+#
+#     permission_classes = [permissions.AllowAny]
+#
+#     def get_queryset(self):
+#         books = Book.objects.all()
+#         return books
+#
+#     def get_serializer_class(self):
+#         if self.action == 'list':
+#             return BookListSerializer
+#         elif self.authentication_classes:
+#             return BookAuthorsSerializer
+
 
 # class BookAuthorView(APIView):
 #     def get(self, request, pk):
@@ -218,6 +236,7 @@ class ReviewCreateView(generics.CreateAPIView):
 
 class AuthorListView(generics.ListAPIView):
     """Список авторов"""
+    pagination_class = PaginationAuthors
     serializer_class = AuthorListSerializer
 
     def get_queryset(self):
