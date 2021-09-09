@@ -22,6 +22,8 @@ from django.conf import settings
 from django.views.generic import RedirectView
 from django.conf.urls import url
 
+from .yasg import urlpatterns as doc_urls
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include('library_site.urls')),
@@ -31,5 +33,7 @@ urlpatterns = [
     path('auth/', include('djoser.urls.authtoken')),
     path('auth/', include('djoser.urls.jwt')),
 ]
+
+urlpatterns += doc_urls
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -182,7 +182,7 @@ class BookListView(generics.ListAPIView):
     filter_backends = (DjangoFilterBackend,)
     filterset_class = BookFilter
 
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
 
     def get_queryset(self):
         books = Book.objects.all()
